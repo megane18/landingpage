@@ -1,1047 +1,592 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mégane Alexis - Computer Science Student & Aspiring Full Stack Developer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-        :root {
-            --primary-color: #ff00ff;
-            --secondary-color: #00ffff;
-            --bg-color: #000;
-            --text-color: #fff;
-        }
-
-        .light-mode {
-            --primary-color: #ff1493;
-            --secondary-color: #00bfff;
-            --bg-color: #f0f0f0;
-            --text-color: #333;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body, input, select, textarea {
-            font-family: "Press Start 2P", cursive;
-            font-size: 14px;
-            line-height: 1.65;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-        }
-
-        body {
-            overflow-x: hidden;
-        }
-
-        .section {
-            min-height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            padding: 4rem 0;
-        }
-
-        .section-content {
-            text-align: center;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        h1, h2, h3 {
-            margin-bottom: 1rem;
-        }
-
-        h1 {
-            font-size: 3em;
-            color: var(--primary-color);
-            text-shadow: 0 0 10px var(--primary-color);
-        }
-
-        h2 {
-            font-size: 2em;
-            color: var(--secondary-color);
-            text-shadow: 0 0 10px var(--secondary-color);
-        }
-
-        p {
-            margin-bottom: 1rem;
-            max-width: 600px;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: var(--primary-color);
-            color: var(--bg-color);
-            text-decoration: none;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .button:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.1);
-        }
-
-        .button::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255,255,255,0.1);
-            transform: rotate(45deg);
-            z-index: -1;
-            transition: all 0.3s ease;
-        }
-
-        .button:hover::before {
-            left: 100%;
-        }
-
-        #home {
-            background: rgb(0, 15, 17);
-        }
-
-        #home::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-        }
-
-        .profile-pic {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 3px solid var(--primary-color);
-            margin-bottom: 1rem;
-            animation: glowing 2s infinite;
-        }
-
-        @keyframes glowing {
-            0% { box-shadow: 0 0 5px var(--primary-color); }
-            50% { box-shadow: 0 0 20px var(--primary-color); }
-            100% { box-shadow: 0 0 5px var(--primary-color); }
-        }
-
-        #projects {
-            background-color: #000033;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-        }
-
-        .project {
-            background: rgba(255,255,255,0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-        }
-
-        .project:hover {
-            transform: translateY(-10px) rotateY(10deg);
-            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
-        }
-
-        .project img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-        }
-
-        .project-gif {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-        }
-
-        .project:hover .project-gif {
-            transform: scale(1.05);
-            transition: transform 0.3s ease;
-        }
-
-        .project-links {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 1rem;
-        }
-
-        .project-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .project-links a:hover {
-            color: var(--primary-color);
-        }
-
-        #skills {
-            background-color: #330033;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            max-width: 800px;
-        }
-
-        .skill {
-            text-align: center;
-            /* transition: all 0.3s ease; */
-        }
-
-        .skill:hover {
-            transform: scale(1.1);
-        }
-
-        .skill i {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            /* transition: all 0.3s ease; */
-        }
-
-        .skill:hover i {
-            animation: bounce 0.5s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .skill-bar {
-            width: 100%;
-            height: 20px;
-            background-color: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .skill-progress {
-            width: 0%;
-            height: 100%;
-            background-color: var(--primary-color);
-            border-radius: 10px;
-            animation: progressAnimation 8s ease-in-out infinite;
-}
-
-        @keyframes progressAnimation {
-                80% {
-            width: 0%;
-    }
-        20% {
-            width: 80%;
-    }
-}
-
-
-
-            /* transition: width 8s ease-in-out;
-        }
-
-        .skill-progress.active {
-            width: 100%; 
-        } */
-
-        #accomplishments {
-            background-color: #003300;
-        }
-
-        .accomplishments-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-        }
-
-        .accomplishment {
-            background: rgba(255,255,255,0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .accomplishment:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
-        }
-
-        #resume-chat {
-            background-color: #333300;
-        }
-
-        .chat-container {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 10px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .chat-message {
-            margin-bottom: 1rem;
-        }
-
-        .chat-options {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        #contact {
-            background-color: #003333;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2px 2px 0 28px;
-            /* margin-top: 1rem; */
-        }
-
-        .social-links a {
-            color: var(--text-color);
-            font-size: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--primary-color);
-            transform: scale(1.2) rotate(360deg);
-        }
-
-        .contact-form {
-            max-width: 500px;
-            margin: 2rem auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 95%;
-            padding: 0.5rem;
-            margin: 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: rgba(255,255,255,0.1);
-            color: var(--text-color);
-        }
-
-        input[type=text],  input[type=email], textarea {
-        transition: width 0.4s ease-in-out;
-            }
-
-        input[type=text]:focus,  input[type=email]:focus, textarea:focus {
-        width: 90%;
-        }
-
-        .contact-form textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .contact-form button {
-            align-self: center;
-        }
-
-        .nav-dots {
-            position: fixed;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
-            z-index: 1000;
-        }
-
-        .nav-dot {
-            width: 15px;
-            height: 15px;
-            background-color: var(--text-color);
-            border-radius: 50%;
-            margin: 10px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-dot.active {
-            background-color: var(--primary-color);
-            box-shadow: 0 0 10px var(--primary-color);
-        }
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(0,0,0,0.8);
-            padding: 1rem;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .navbar.hidden {
-            transform: translateY(-100%);
-        }
-
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            list-style-type: none;
-        }
-
-        .nav-links li {
-            margin: 0 1rem;
-        }
-
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--primary-color);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            flex-direction: column;
-            justify-content: space-around;
-            height: 24px;
-        }
-
-        .hamburger div {
-            width: 30px;
-            height: 3px;
-            background-color: var(--text-color);
-            transition: all 0.3s ease;
-        }
-
-        .hamburger.active div:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .hamburger.active div:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active div:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        .nav-links.active {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            right: 0;
-            background-color: rgba(0,0,0,0.9);
-            width: 100%;
-            height: calc(100vh - 60px);
-        }
-
-        .footer {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            text-align: center;
-            padding: 2rem 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer {
-            justify-content: center;
-            /* margin: 2px 2px 0 25px; */
-            /* margin-top: 1rem; */
-        }
-
-        .footer p {
-            margin-top: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .section-separator {
-            position: relative;
-            width: 100%;
-            height: 50px;
-            background: linear-gradient(to bottom, transparent 50%, var(--bg-color) 50%);
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .section-separator svg {
-            position: absolute;
-            top: -50px;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            fill: var(--bg-color);
-        }
-
-        .wave {
-            animation: wave 3s linear infinite;
-        }
-
-        @keyframes wave {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-
-        .scroll-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--primary-color);
-            color: var(--bg-color);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 1000;
-        }
-
-        .scroll-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-to-top:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.1);
-        }
-
-        .mode-toggle {
-            position: absolute;
-            top: 14px;
-            right: 80%; 
-            z-index: 1001;
-            background-color: var(--primary-color);
-            color: var(--bg-color);
-            border: none;
-            padding: 4px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .mode-toggle:hover {
-            background-color: var(--secondary-color);
-        }
-
-        
-
-        @media screen and (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-            .nav-links {
-                display: none;
-            }
-            .projects-grid,
-            .skills-grid,
-            .accomplishments-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            .section-content p {
-                padding: 0 1rem;
-            }
-            .contact-form{
-            
-            display: flex;
-            
-        
-            }
-           
-            
-            .mode-toggle {
-                right: 70px;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            h1 {
-                font-size: 2.5em;
-            }
-            h2 {
-                font-size: 1.5em;
-            }
-            .profile-pic {
-                width: 150px;
-                height: 150px;
-            }
-            .section-content p {
-                padding: 0 1rem;
-            }
-
-           
-    </style>
+  <meta charset="UTF-8" />
+  
+  <!-- Multiple Favicon Formats for Better Browser Support -->
+  <link rel="icon" type="image/png" sizes="32x32" href="images/ma.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/ma.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/ma.png"/>
+  <link rel="shortcut icon" href="images/ma.png" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <title>Mégane Alexis — Developer & Security Engineer</title> -->
+     <title>Welcome....</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="logo">Mégane Alexis</div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#accomplishments">Accomplishments</a></li>
-            <li><a href="#resume-chat">Resume</a></li>
-            <li><a href="#contact">Contact</a></li>
+  <!-- <a class="skip-link" href="#main">Skip to main content</a> -->
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="nav-container">
+        <a href="#" class="logo">M. Alexis</a>
+
+        <ul class="nav-desktop">
+          <li><a href="#about">About</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
-        <div class="hamburger">
-            <div></div>
-            <div></div>
-            <div></div>
+
+        <div class="nav-actions">
+          <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark mode">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </button>
+
+          <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav class="nav-mobile" id="navMobile">
+      <div class="nav-mobile-inner">
+        <ul class="nav-mobile-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-mobile-social">
+          <a href="https://linkedin.com/in/megane-alexis" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/megane18" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="mailto:meganealexis12@gmail.com" aria-label="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
+      </div>
     </nav>
+  </header>
 
-    <button class="mode-toggle" id="modeToggle">
-        <i class="fas fa-moon"></i>
-    </button>
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <canvas id="heroCanvas"></canvas>
+      </div>
 
-    <section id="home" class="section animate__animated animate__fadeIn">
-        <div id="particles-js"></div>
-        <div class="section-content">
-            <img src="images/megane.jpg" alt="Mégane Alexis" class="profile-pic">
-            <h1 id="typingText"></h1>
-            <h2>Computer Science Student & Aspiring Full Stack Developer</h2>
-            <a href="#about" class="button">Learn More</a>
-        </div>
-    </section>
-
-    <!-- Other sections remain the same -->
-    <div class="section-separator">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,120V0H1200V120H0Z" class="wave"></path>
-        </svg>
-    </div>
-
-    <section id="about" class="section">
-        <div class="section-content">
-            <h2>About Me</h2>
-            <p>I'm Mégane Alexis, a passionate Computer Science student at Florida International University with a strong foundation in economics. As an aspiring full stack developer, I'm dedicated to creating innovative solutions and continuously expanding my technical skills. With experience in front-end development and a keen interest in emerging technologies, I'm committed to making a meaningful impact in the tech industry. My involvement in various tech communities and leadership roles demonstrates my enthusiasm for collaboration and growth in the field of computer science.</p>
-        </div>
-    </section>
-
-    <div class="section-separator">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,0V120H1200V0H0Z" class="wave"></path>
-        </svg>
-    </div>
-
-    <section id="projects" class="section">
-        <div class="section-content">
-            <h2>Projects</h2>
-            <div class="projects-grid">
-                <div class="project">
-                    <img src="images/BinaryQuest.gif" alt="Binary Quest" class="project-gif">
-                    <h3>Binary Quest: Interactive Number Guessing Game</h3>
-                    <p>Developed a Python-based game using Pygame, implementing binary search principles and enhancing UI/UX design skills.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/megane18/binary-search-number-game" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        <a href="#" class="demo-link">Live Demo</a>
-                    </div>
-                </div>
-                <div class="project">
-                    <img src="images/BankingSystem.gif" alt="Banking System Simulation" class="project-gif">
-                    <h3>Banking System Simulation</h3>
-                    <p>Created a Java-based banking system simulation with core banking functions and a user-friendly interface.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/megane18/BankingSystem/tree/master" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        <a href="#" class="demo-link">Live Demo</a>
-                    </div>
-                </div>
+      <div class="container">
+        <div class="hero-layout">
+          <div class="hero-main">
+            <div class="hero-status">
+              <span>Starting Comcast CORE Cybersecurity • July 2026</span>
+              <span>Exploring PhD Programs • Fall 2027</span>
             </div>
+
+            <h1 class="hero-title">
+              Building accessible technology <em>with</em> communities, not just <em>for</em> them
+            </h1>
+
+            <p class="hero-desc">
+              Recent CS graduate from FIU focused on security, clean architecture, and building technology that actually works for everyone, especially people who often get overlooked.
+
+            </p>
+
+            <div class="hero-cta">
+              <a href="resume/Real_resume.docx.pdf" class="btn btn-primary" target="_blank" rel="noreferrer">View Resume</a>
+              <a href="mailto:hello@meganealexis.com" class="btn btn-secondary">Get in touch</a>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat-box">
+                <span class="stat-label">Location</span>
+                <span class="stat-value">Miami, FL</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">Current Focus</span>
+                <span class="stat-value">SignBridge & Security Tools</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">Connect</span>
+                <div class="stat-links">
+                  <a href="https://linkedin.com/in/megane-alexis" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                  <a href="https://github.com/megane18" target="_blank" rel="noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                  </a>
+                  <a href="mailto:hello@meganealexis.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-side">
+            <div class="profile-card">
+              <div class="profile-top">
+                <img src="images/megane.jpg" alt="Mégane Alexis" class="profile-img" />
+
+                <div class="profile-bio">
+                  <h3>Mégane Alexis</h3>
+                  <p>Building secure, accessible tech. SignBridge is my main focus right now.</p>
+                </div>
+              </div>
+
+              <div class="profile-tags">
+                <span>React</span>
+                <span>Python</span>
+                <span>FastAPI</span>
+                <span>Security</span>
+              </div>
+
+              <div class="profile-info">
+                <h4>Currently Building</h4>
+                <p>SignBridge (ASL recognition, potential PhD thesis), SecureVault (post-quantum cryptography with ML-KEM-768), and Outlook Parasite Search (semantic email search). I am also exploring research programs in ethical AI, accessibility, and security.</p>
+              </div>
+
+              <div class="profile-grid">
+                <div class="profile-grid-item">
+                  <h4>Priorities</h4>
+                  <p>Security-first design, clean code, and great user experience</p>
+                </div>
+                <div class="profile-grid-item">
+                  <h4>Approach</h4>
+                  <p>Ship carefully, learn continuously, improve constantly</p>
+                </div>
+              </div>
+              
+            </div>
+          </aside>
         </div>
+      </div>
     </section>
 
-    <!-- Other sections remain the same -->
-    <div class="section-separator">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,120V0H1200V120H0Z" class="wave"></path>
-        </svg>
-    </div>
+    <!-- About -->
+    <section class="about" id="about">
+      <div class="container">
+        <span class="section-tag">About</span>
 
-    <section id="skills" class="section">
-        <div class="section-content">
-            <h2>Skills</h2>
-            <div class="skills-grid">
-                <div class="skill">
-                    <i class="fab fa-java"></i>
-                    <h3>Java</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 90%;"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <i class="fab fa-js"></i>
-                    <h3>JavaScript</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 85%;"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <i class="fab fa-python"></i>
-                    <h3>Python</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 80%;"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <i class="fab fa-react"></i>
-                    <h3>React</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 75%;"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <i class="fab fa-html5"></i>
-                    <h3>HTML</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 95%;"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <i class="fab fa-css3-alt"></i>
-                    <h3>CSS</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 90%;"></div>
-                    </div>
-                </div>
+        <div class="about-layout">
+          <div class="about-content">
+            <h2>Background & Approach</h2>
+
+            <div class="about-text">
+              <p>
+                I graduated from Florida International University with a degree in Computer Science and will be starting as a CORE Cybersecurity Associate at Comcast in July 2026. Most of what I know comes from building things, breaking them, and figuring out how they work. I get bored easily, so I am always starting new projects instead of copying what already exists.
+              </p>
+              <p>
+                I care more about security and clean code than shipping fast. Technology should work for everyone, not just people who can afford it or already have access. Right now I am building SignBridge as a possible PhD thesis foundation, SecureVault for post-quantum cryptography, and Outlook Parasite Search.
+              </p>
+              <p>
+                The most important part is that I'm building SignBridge with and for the Deaf community. That includes revenue sharing and community ownership from day one. That is the only way I'm willing to build it. I am currently exploring PhD programs for Fall 2027 that align with my interests in ethical AI, post-quantum security, and accessibility technology.
+              </p>
             </div>
+
+            <div class="skills-section">
+              <h4>Technical Skills</h4>
+              <div class="skills-grid">
+                <div class="skill-box">
+                  <strong>Frontend</strong>
+                  <span>React, TypeScript, Tailwind, HTML/CSS</span>
+                </div>
+                <div class="skill-box">
+                  <strong>Backend</strong>
+                  <span>Python, FastAPI, PostgreSQL, Redis</span>
+                </div>
+                <div class="skill-box">
+                  <strong>Tools & DevOps</strong>
+                  <span>Git, Docker, Linux, VS Code</span>
+                </div>
+                <div class="skill-box">
+                  <strong>Security</strong>
+                  <span>Network Security, PQC, Wireshark, Nmap, Burp Suite</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="about-sidebar">
+            <div class="info-box">
+              <h4>Current Focus</h4>
+              <p><strong>Starting Comcast CORE Cybersecurity</strong></p>
+              <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: var(--space-4);">July 2026 • Building on ERP internship experience</p>
+
+              <p><strong>Exploring PhD Programs</strong></p>
+              <p style="color: var(--text-muted); font-size: 0.875rem;">Fall 2027 applications • Research interests: Ethical AI, Post-Quantum Cryptography, Accessibility Tech</p>
+            </div>
+
+            <div class="info-box">
+              <h4>Education</h4>
+              <p><strong>Florida International University</strong></p>
+              <p style="color: var(--text-muted); font-size: 0.875rem;">Computer Science, 2025</p>
+            </div>
+
+            <div class="info-box">
+              <h4>Experience & Programs</h4>
+              <ul class="timeline">
+                <li class="timeline-item">
+                  <strong>Comcast ERP Cybersecurity Intern</strong>
+                  <span>Redis fingerprinting, security analytics</span>
+                </li>
+                <li class="timeline-item">
+                  <strong>Tech Cadets</strong>
+                  <span>Backend Team Lead</span>
+                </li>
+                <li class="timeline-item">
+                  <strong>AI4ALL Ignite</strong>
+                  <span>Fellowship</span>
+                </li>
+                <li class="timeline-item">
+                  <strong>Headstarter</strong>
+                  <span>Software Engineering Fellow</span>
+                </li>
+              </ul>
+            </div>
+          </aside>
         </div>
+      </div>
     </section>
 
-    <div class="section-separator">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,0V120H1200V0H0Z" class="wave"></path>
-        </svg>
-    </div>
+    <!-- Featured Project -->
+<section class="featured" id="work">
+  <div class="container">
+    <span class="section-tag">Featured Work</span>
 
-    <section id="accomplishments" class="section">
-        <div class="section-content">
-            <h2>Accomplishments</h2>
-            <div class="accomplishments-grid">
-                <div class="accomplishment">
-                    <h3>AI4ALL Ignite Program</h3>
-                    <p>Accepted into the prestigious AI4ALL Ignite Program</p>
-                </div>
-                <div class="accomplishment">
-                    <h3>Tech Cadets Backend Leader</h3>
-                    <p>Serving as the backend leader for one of the Tech Cadets groups</p>
-                </div>
-                <div class="accomplishment">
-                    <h3>ShellHacks at FIU</h3>
-                    <p>Selected to participate in ShellHacks hackathon at Florida International University</p>
-                </div>
-                <div class="accomplishment">
-                    <h3>Bank of America Work Prep</h3>
-                    <p>Accepted into the Bank of America Work Prep program</p>
-                </div>
-                <div class="accomplishment">
-                    <h3>Headstarter Fellowship</h3>
-                    <p>Awarded the Headstarter Fellowship</p>
-                </div>
-            </div>
+    <div class="project-grid">
+      <!-- First Code Display -->
+      <div class="code-display">
+        <div class="code-header">
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
         </div>
+        <div class="code-body">
+<pre><code><span class="code-comment"># ASL Recognition System</span>
+<span class="code-keyword">class</span> <span class="code-function">SignDetector</span>:
+    <span class="code-keyword">def</span> <span class="code-function">process_frame</span>(self, frame):
+        landmarks = self.extract_hands(frame)
+        prediction = self.model.predict(landmarks)
+        <span class="code-keyword">return</span> prediction</code></pre>
+        </div>
+        
+        <div class="code-display">
+        <div class="code-header">
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+        </div>
+        <div class="code-body">
+<pre><code><span class="code-comment"># Data Augmentation Pipeline</span>
+<span class="code-keyword">def</span> <span class="code-function">augment_signs</span>(video_path):
+    augmented = []
+    <span class="code-keyword">for</span> angle <span class="code-keyword">in</span> [<span class="code-function">-15</span>, <span class="code-function">0</span>, <span class="code-function">15</span>]:
+        rotated = rotate_video(video_path, angle)
+        augmented.append(rotated)
+    <span class="code-keyword">return</span> augmented</code></pre>
+        </div>
+      </div>
+      
+      <div class="code-display">
+        <div class="code-header">
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+        </div>
+        <div class="code-body">
+<pre><code><span class="code-comment"># Community-First Development</span>
+<span class="code-keyword">class</span> <span class="code-function">CommunityModel</span>:
+    <span class="code-keyword">def</span> <span class="code-function">collaborate</span>(self, community):
+        feedback = community.collect_input()
+        self.model.adapt(feedback)
+        revenue = self.generate_revenue()
+        <span class="code-keyword">return</span> community.distribute(revenue)</code></pre>
+        </div>
+      </div>
+      </div>
+
+      <div class="project-details">
+        <h2>SignBridge</h2>
+        <p class="project-desc">
+          Building ASL recognition technology with the Deaf community as partners and co-owners, not just users. SignBridge uses computer vision and hand landmark detection to improve accessibility and communication, with participatory design, revenue sharing, and community ownership from day one.
+        </p>
+
+        <p class="project-desc">
+          This is not just about technical accuracy. It is about ethical AI. I am exploring this work as a potential PhD thesis focused on how machine learning systems can be built through real community collaboration, with transparency and mutual benefit.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature">
+            <div class="feature-icon">✓</div>
+            <div class="feature-content">
+              <h4>Community Partnership</h4>
+              <p>Partners from day one</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">✓</div>
+            <div class="feature-content">
+              <h4>Revenue Sharing</h4>
+              <p>Fair compensation model</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">✓</div>
+            <div class="feature-content">
+              <h4>Ethical AI</h4>
+              <p>Transparent & accountable</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-list">
+          <span class="tech-badge">Python</span>
+          <span class="tech-badge">MediaPipe</span>
+          <span class="tech-badge">LSTM</span>
+          <span class="tech-badge">React</span>
+        </div>
+      </div>
+
+      <!-- Second Code Display -->
+      <!-- <div class="code-display">
+        <div class="code-header">
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+        </div>
+        <div class="code-body">
+<pre><code><span class="code-comment"># Community-First Development</span>
+<span class="code-keyword">class</span> <span class="code-function">CommunityModel</span>:
+    <span class="code-keyword">def</span> <span class="code-function">collaborate</span>(self, community):
+        feedback = community.collect_input()
+        self.model.adapt(feedback)
+        revenue = self.generate_revenue()
+        <span class="code-keyword">return</span> community.distribute(revenue)</code></pre>
+        </div>
+      </div> -->
+
+      <!-- Third Code Display -->
+      <!-- <div class="code-display">
+        <div class="code-header">
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+        </div>
+        <div class="code-body">
+<pre><code><span class="code-comment"># Hand Landmark Processing</span>
+<span class="code-keyword">def</span> <span class="code-function">extract_features</span>(landmarks):
+    normalized = normalize_coords(landmarks)
+    features = compute_angles(normalized)
+    <span class="code-keyword">return</span> torch.tensor(features)
+    
+<span class="code-comment"># Model Training Pipeline</span>
+model.fit(X_train, y_train, epochs=<span class="code-function">100</span>)</code></pre>
+        </div>
+      </div> -->
+
+      <!-- Fourth Code Display -->
+      <!-- <div class="code-display">
+        <div class="code-header">
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+        </div>
+        <div class="code-body">
+<pre><code><span class="code-comment"># Real-time Sign Detection</span>
+<span class="code-keyword">while</span> cap.isOpened():
+    ret, frame = cap.read()
+    results = hands.process(frame)
+    <span class="code-keyword">if</span> results.multi_hand_landmarks:
+        prediction = model.predict(results)
+        cv2.putText(frame, prediction, (<span class="code-function">10</span>, <span class="code-function">30</span>))</code></pre>
+        </div>
+      </div> -->
+
+      <!-- Fifth Code Display -->
+      <!-- <div class="code-display">
+        <div class="code-header">
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+        </div>
+        <div class="code-body">
+<pre><code><span class="code-comment"># Data Augmentation Pipeline</span>
+<span class="code-keyword">def</span> <span class="code-function">augment_signs</span>(video_path):
+    augmented = []
+    <span class="code-keyword">for</span> angle <span class="code-keyword">in</span> [<span class="code-function">-15</span>, <span class="code-function">0</span>, <span class="code-function">15</span>]:
+        rotated = rotate_video(video_path, angle)
+        augmented.append(rotated)
+    <span class="code-keyword">return</span> augmented</code></pre>
+        </div>
+      </div> -->
+
+      <!-- Sixth Code Display -->
+      <!-- <div class="code-display">
+        <div class="code-header">
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+        </div>
+        <div class="code-body">
+<pre><code><span class="code-comment"># LSTM Sequence Model</span>
+model = Sequential([
+    LSTM(<span class="code-function">128</span>, return_sequences=<span class="code-function">True</span>),
+    Dropout(<span class="code-function">0.3</span>),
+    LSTM(<span class="code-function">64</span>),
+    Dense(num_classes, activation=<span class="code-function">'softmax'</span>)
+])
+model.compile(optimizer=<span class="code-function">'adam'</span>)</code></pre>
+        </div>
+      </div> -->
+
+      <!-- Collaborator Section - More Compact -->
+      <div class="collaborator-section">
+        <div class="collab-content">
+          <h3>Join the Research</h3>
+          <p>Deaf signers interested in building ethical ASL technology together. No coding required.</p>
+        </div>
+        <div class="collaborator-actions">
+          <a href="./resume/video_full.gif" download="SignBridge_Collaborator_Call.gif" class="btn btn-primary">
+            Download Flyer
+          </a>
+          <a href="./resume/video_full.gif" target="_blank" class="btn btn-secondary">
+            View Flyer
+          </a>
+          <a href="mailto:hello@signbridge.ai" class="btn btn-secondary">
+            Get Involved
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    <!-- Other Projects -->
+    <section class="projects">
+      <div class="container">
+        <span class="section-tag">Other Projects</span>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="card-top">
+              <h3>SecureVault</h3>
+              <span class="status complete">complete</span>
+            </div>
+            <p class="card-desc">Post-quantum cryptography implementation using ML-KEM-768 with hybrid classical+PQC protection. Addressing emerging quantum computing threats.</p>
+            <div class="card-tags">
+              <span>Python</span>
+              <span>Cryptography</span>
+              <span>Security</span>
+            </div>
+            <!-- <a href="https://github.com/megane18/binary-search-number-game" class="card-link" target="_blank" rel="noreferrer">
+              View on GitHub →
+            </a> -->
+          </article>
+
+          <article class="project-card">
+            <div class="card-top">
+              <h3>Outlook Parasite Search</h3>
+              <span class="status">55%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-fill" style="width: 55%"></div>
+            </div>
+            <p class="card-desc">Semantic email search using embeddings. Finds emails based on meaning, not just keywords.</p>
+            <div class="card-tags">
+              <span>Python</span>
+              <span>FastAPI</span>
+              <span>NLP</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="card-top">
+              <h3>Binary Quest</h3>
+              <span class="status complete">Complete</span>
+            </div>
+            <p class="card-desc">Interactive game teaching binary search algorithms through gameplay.</p>
+            <div class="card-tags">
+              <span>Python</span>
+              <span>Pygame</span>
+            </div>
+            <a href="https://github.com/megane18/binary-search-number-game" class="card-link" target="_blank" rel="noreferrer">
+              View on GitHub →
+            </a>
+          </article>
+
+          <article class="project-card">
+            <div class="card-top">
+              <h3>Banking System</h3>
+              <span class="status complete">Complete</span>
+            </div>
+            <p class="card-desc">Financial simulation to understand how banking systems work internally.</p>
+            <div class="card-tags">
+              <span>Java</span>
+              <span>OOP</span>
+            </div>
+            <a href="https://github.com/megane18/BankingSystem" class="card-link" target="_blank" rel="noreferrer">
+              View on GitHub →
+            </a>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <div class="section-separator">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,120V0H1200V120H0Z" class="wave"></path>
-        </svg>
-    </div>
+    <!-- Contact -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="contact-wrapper">
+          <span class="section-tag">Get In Touch</span>
+          <h2>Let's work together</h2>
+          <p class="contact-intro">
+            Open to opportunities, collaborations, or just conversations about technology
+            and accessibility. I usually respond within 24 to 48 hours.
+          </p>
 
-    <section id="resume-chat" class="section">
-        <div class="section-content">
-            <h2>Resume</h2>
-            <div class="chat-container">
-                <div class="chat-message">
-                    <p>Would you like to view or download my resume?</p>
-                </div>
-                <div class="chat-options">
-                    <a href="resume/Final Resume1 1 1 (1).pdf" target="_blank" class="button">View Resume</a>
-                    <a href="resume/Final Resume1 1 1 (1).pdf" download class="button">Download Resume</a>
-                </div>
+          <form id="contactForm" class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
             </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <div id="formStatus" class="form-status"></div>
+          </form>
         </div>
+      </div>
     </section>
+  </main>
 
-    <div class="section-separator">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,0V120H1200V0H0Z" class="wave"></path>
-        </svg>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; 2025 Mégane Alexis</p>
+        <a href="#" class="footer-link">Back to Top ↑</a>
+      </div>
     </div>
+  </footer>
 
-    <section id="contact" class="section">
-        <div class="section-content">
-            <h2>Contact</h2>
-            <p>Feel free to reach out to me via email or connect with me on LinkedIn and GitHub!</p>
-            <div class="social-links">
-                <a href="https://linkedin.com/in/megane-alexis"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:meganealexis12@gmail.com"><i class="fas fa-envelope"></i></a>
-            </div>
-            <form id="contact-form" class="contact-form">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" required></textarea>
-                <button type="submit" class="button">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="https://linkedin.com/in/megane-alexis"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/megane18"><i class="fab fa-github"></i></a>
-                <a href="https://www.reddit.com/u/PaintIndependent5282/s/JcDAYNHXYy"><i class="fab fa-reddit"></i></a>
-            </div>
-            <p>&copy; 2024 Mégane Alexis. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <div class="scroll-to-top" id="scrollToTop">
-        <i class="fas fa-chevron-up"></i>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script>
-        // Particle.js configuration
-        particlesJS("particles-js", {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#ffffff" },
-                shape: { type: "circle", stroke: { width: 0, color: "#000000" }, polygon: { nb_sides: 5 }, image: { src: "img/github.svg", width: 100, height: 100 } },
-                opacity: { value: 0.5, random: false, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
-                size: { value: 3, random: true, anim: { enable: false, speed: 40, size_min: 0.1, sync: false } },
-                line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
-                move: { enable: true, speed: 6, direction: "none", random: false, straight: false, out_mode: "out", bounce: false, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
-                modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
-            },
-            retina_detect: true
-        });
-
-        // Typing animation
-        const typingText = document.getElementById('typingText');
-        const text = "Mégane Alexis";
-        let i = 0;
-
-        function typeWriter() {
-            if (i < text.length) {
-                typingText.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            }
-        }
-
-        typeWriter();
-
-        // Hamburger menu
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('.nav-links a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Hide navbar on scroll down
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop) {
-                navbar.classList.add('hidden');
-            } else {
-                navbar.classList.remove('hidden');
-            }
-            lastScrollTop = scrollTop;
-        });
-
-        // Scroll animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate__animated', 'animate__fadeIn');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Scroll to top button
-        const scrollToTopButton = document.getElementById('scrollToTop');
-
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollToTopButton.classList.add('show');
-            } else {
-                scrollToTopButton.classList.remove('show');
-            }
-        });
-
-        scrollToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Dark/Light mode toggle
-        const modeToggle = document.getElementById('modeToggle');
-        const body = document.body;
-
-        modeToggle.addEventListener('click', () => {
-            body.classList.toggle('light-mode');
-            if (body.classList.contains('light-mode')) {
-                modeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                modeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-        });
-
-        // Contact form submission
-        const contactForm = document.getElementById('contact-form');
-
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(contactForm);
-            fetch('https://formspree.io/f/mblrobgn', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    alert('Thank you for your message! I will get back to you soon.');
-                    contactForm.reset();
-                } else {
-                    alert('Oops! There was a problem submitting your form. Please try again.');
-                }
-            }).catch(error => {
-                alert('Oops! There was a problem submitting your form. Please try again.');
-            });
-        });
-
-        // Skill bar animation
-        const skillBars = document.querySelectorAll('.skill-progress');
-
-        const animateSkillBars = (entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.width = entry.target.getAttribute('data-width');
-                    observer.unobserve(entry.target);
-                }
-            });
-        };
-
-        const skillObserver = new IntersectionObserver(animateSkillBars, {
-            threshold: 0.5
-        });
-
-        skillBars.forEach(bar => {
-            bar.style.width = '0';
-            bar.setAttribute('data-width', bar.style.width);
-            skillObserver.observe(bar);
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
