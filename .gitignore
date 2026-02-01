@@ -1,0 +1,15 @@
+RSA
+images/
+factor.py
+__pycache__/
+*.pyc
+*.txt
+testing.py
+index.html
+legacy.html
+legacy2.html
+test.html
+index.html
+logo.html
+logo2.html
+test.html
