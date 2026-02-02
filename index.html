@@ -2,102 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  
-  <!-- Favicon with cache-busting - Safari specific fixes -->
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=2" />
-  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png?v=2" />
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png?v=2" />
-  <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48x48.png?v=2" />
-  
-  <!-- Safari/iOS specific (MUST be 180x180 exactly) -->
-  <link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=2" />
-  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=2" />
-  
-  <!-- Android -->
-  <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png?v=2" />
-  
-  <link rel="manifest" href="site.webmanifest?v=2" />
+
+  <!-- ROOT FAVICON (CRITICAL FOR SAFARI) -->
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- PNG FAVICONS -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48.png">
+
+  <!-- APPLE TOUCH -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+  <!-- ANDROID -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+
+  <!-- MANIFEST -->
+  <link rel="manifest" href="/site.webmanifest">
+
   <meta name="theme-color" content="#ed4264" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Welcome....</title>
 
+  <!-- FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- ICONS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- YOUR CSS -->
   <link rel="stylesheet" href="styles.css">
-  
+
+  <!-- TITLE TYPING ANIMATION -->
   <script>
-    // Combined Typing Effect + Rotating Roles Animation - FIXED
-    (function() {
-//       const roles = [
-//   '⛨ Security Engineer',
-//   '⚶ Developer',
-//   '⎙ FIU CS Graduate',
-//   '⧗ Joining Comcast 2026',
-//   '⌾ Accessibility Advocate',
-//   '◆ Community-First Tech',
-//   '✧ Building SignBridge'
-// ];
+  (function () {
 
-const roles = [
-  'Security Engineer',      // Lock (renders B&W on most browsers)
-  'Developer & Builder',     // Lightning (B&W)
-  'FIU CS Graduate',        // Cap (B&W)
-  'Joining Comcast 2026',   // Rocket (B&W)
-  'Accessibility Advocate',  // Wheelchair (B&W)
-  'Community-First Tech',   // Star outline (B&W)
-  'Building SignBridge',     // Eagle (B&W)
-];
+    const roles = [
+      'Security Engineer',
+      'Developer & Builder',
+      'FIU CS Graduate',
+      'Joining Comcast 2026',
+      'Accessibility Advocate',
+      'Community-First Tech',
+      'Building SignBridge'
+    ];
 
-      
-      let currentRoleIndex = 0;
-      let currentText = '';
-      let isDeleting = false;
-      let charIndex = 0;
-      
-      function typeEffect() {
-  const currentRole = roles[currentRoleIndex];
+    let currentRoleIndex = 0;
+    let currentText = '';
+    let isDeleting = false;
+    let charIndex = 0;
+    let timerId = null;
 
-  if (!isDeleting) {
-    // advance first
-    charIndex = Math.min(charIndex + 1, currentRole.length);
-  } else {
-    // retreat first
-    charIndex = Math.max(charIndex - 1, 0);
-  }
+    function schedule(fn, delay) {
+      timerId = setTimeout(fn, delay);
+    }
 
-  currentText = currentRole.substring(0, charIndex);
-  document.title = currentText + '|';
+    function stopSchedule() {
+      if (timerId) clearTimeout(timerId);
+      timerId = null;
+    }
 
-  // when fully typed
-  if (!isDeleting && charIndex === currentRole.length) {
-    setTimeout(() => { isDeleting = true; typeEffect(); }, 2000);
-    return;
-  }
+    function typeEffect() {
+      const currentRole = roles[currentRoleIndex];
 
-  // when fully deleted
-  if (isDeleting && charIndex === 0) {
-    isDeleting = false;
-    currentRoleIndex = (currentRoleIndex + 1) % roles.length;
-    setTimeout(typeEffect, 300);
-    return;
-  }
+      if (!isDeleting) {
+        charIndex = Math.min(charIndex + 1, currentRole.length);
+      } else {
+        charIndex = Math.max(charIndex - 1, 0);
+      }
 
-  const speed = isDeleting ? 50 : 100;
-  setTimeout(typeEffect, speed);
-}
+      currentText = currentRole.substring(0, charIndex);
+      document.title = currentText + '|';
 
-      
-      // Start the animation when page loads
-      window.addEventListener('load', () => {
-        setTimeout(typeEffect, 500); // Small delay before starting
-      });
-    })();
+      if (!isDeleting && charIndex === currentRole.length) {
+        schedule(() => {
+          isDeleting = true;
+          typeEffect();
+        }, 2000);
+        return;
+      }
+
+      if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        currentRoleIndex = (currentRoleIndex + 1) % roles.length;
+        schedule(typeEffect, 300);
+        return;
+      }
+
+      const speed = isDeleting ? 50 : 100;
+      schedule(typeEffect, speed);
+    }
+
+    window.addEventListener('load', () => {
+      schedule(typeEffect, 500);
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopSchedule();
+      } else {
+        schedule(typeEffect, 0);
+      }
+    });
+
+  })();
   </script>
+
 </head>
+
 
 
 <body>
