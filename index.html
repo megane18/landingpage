@@ -3,18 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   
-  <!-- Favicon with cache-busting -->
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=1" />
-  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png?v=1" />
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png?v=1" />
-   <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48x48.png?v=1" />
-  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=1" />
-    <link rel="android-chrome" sizes="192x192" href="images/android-chrome-192x192.png?v=1" />
-  <link rel="manifest" href="site.webmanifest" />
+  <!-- Favicon with cache-busting - Safari specific fixes -->
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=2" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48x48.png?v=2" />
+  
+  <!-- Safari/iOS specific (MUST be 180x180 exactly) -->
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=2" />
+  
+  <!-- Android -->
+  <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png?v=2" />
+  
+  <link rel="manifest" href="site.webmanifest?v=2" />
   <meta name="theme-color" content="#ed4264" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome....test</title>
+  <title>Welcome....</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +28,77 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
+  
+  <script>
+    // Combined Typing Effect + Rotating Roles Animation - FIXED
+    (function() {
+//       const roles = [
+//   '⛨ Security Engineer',
+//   '⚶ Developer',
+//   '⎙ FIU CS Graduate',
+//   '⧗ Joining Comcast 2026',
+//   '⌾ Accessibility Advocate',
+//   '◆ Community-First Tech',
+//   '✧ Building SignBridge'
+// ];
+
+const roles = [
+  'Security Engineer',      // Lock (renders B&W on most browsers)
+  'Developer & Builder',     // Lightning (B&W)
+  'FIU CS Graduate',        // Cap (B&W)
+  'Joining Comcast 2026',   // Rocket (B&W)
+  'Accessibility Advocate',  // Wheelchair (B&W)
+  'Community-First Tech',   // Star outline (B&W)
+  'Building SignBridge',     // Eagle (B&W)
+];
+
+      
+      let currentRoleIndex = 0;
+      let currentText = '';
+      let isDeleting = false;
+      let charIndex = 0;
+      
+      function typeEffect() {
+  const currentRole = roles[currentRoleIndex];
+
+  if (!isDeleting) {
+    // advance first
+    charIndex = Math.min(charIndex + 1, currentRole.length);
+  } else {
+    // retreat first
+    charIndex = Math.max(charIndex - 1, 0);
+  }
+
+  currentText = currentRole.substring(0, charIndex);
+  document.title = currentText + '|';
+
+  // when fully typed
+  if (!isDeleting && charIndex === currentRole.length) {
+    setTimeout(() => { isDeleting = true; typeEffect(); }, 2000);
+    return;
+  }
+
+  // when fully deleted
+  if (isDeleting && charIndex === 0) {
+    isDeleting = false;
+    currentRoleIndex = (currentRoleIndex + 1) % roles.length;
+    setTimeout(typeEffect, 300);
+    return;
+  }
+
+  const speed = isDeleting ? 50 : 100;
+  setTimeout(typeEffect, speed);
+}
+
+      
+      // Start the animation when page loads
+      window.addEventListener('load', () => {
+        setTimeout(typeEffect, 500); // Small delay before starting
+      });
+    })();
+  </script>
 </head>
+
 
 <body>
   <!-- <a class="skip-link" href="#main">Skip to main content</a> -->
