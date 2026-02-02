@@ -1,5 +1,4 @@
 RSA
-images/
 factor.py
 __pycache__/
 *.pyc
@@ -13,3 +12,4 @@ index.html
 logo.html
 logo2.html
 test.html
+images/asl
